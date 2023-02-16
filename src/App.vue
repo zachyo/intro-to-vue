@@ -1,19 +1,22 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App" name="ZaRkie"/>
-  <AltschoolStudent/>
+  <RouterLink to="/">Home</RouterLink> ||
+  <RouterLink to="/dogJokes">Dog Jokes</RouterLink>
+  <RouterView></RouterView>
+  <!-- <HelloWorld msg="Welcome to Your Vue.js App" name="ZaRkie"/>
+  <AltschoolStudent/> -->
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import AltschoolStudent from './components/AltSchool.vue';
+// import HelloWorld from './components/HelloWorld.vue'
+// import AltschoolStudent from './components/AltSchool.vue';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld,
-    AltschoolStudent
-  }
+  // components: {
+  //   HelloWorld,
+  //   AltschoolStudent
+  // }
 }
 </script>
 
