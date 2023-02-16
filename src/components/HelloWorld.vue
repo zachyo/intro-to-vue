@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{name}}, {{ msg }} </h1>
+    <h1>{{ name }}, {{ msg }}</h1>
     <h2>{{ num }}</h2>
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
@@ -12,23 +12,47 @@
     <p>{{ count }}</p>
     <button @click="incrementCount">Increment</button>
     <button @click="decrementCount">Decrement</button>
+    <button @click="counterr">Watch</button>
     <p v-if="isAvailable">Available</p>
     <p v-if="inventory > 10">we have {{ inventory }} items in stock</p>
     <p v-else>Hurry we're almost out of stock</p>
     <p v-show="username">Name : {{ username }}</p>
-
+    <p>{{ state.username }}</p>
+    <p>Dad's Joke : {{ data.joke }}</p>
     <input type="text" v-model="username" v-focus />
     <button v-show="username" @click="incrementCount">Submit</button>
   </div>
+  <!-- <div class="dogJokes"><DogJokes /></div> -->
 </template>
 
 <script>
+// import DogJokes from "./dogJokes.vue";
+import {reactive} from 'vue'
+
 export default {
   name: "HelloWorld",
   props: {
     msg: String,
-    name : Object
+    name: Object,
   },
+  setup() {
+  const state = reactive({
+    count: 0,
+    username: "Migos III",
+    isAvailable: true,
+    inventory: 2,
+  })
+  return {state}
+},
+//i dont know how to use watchers in vue 3 and 2
+watch: {
+  counterr : function(newVal, oldVal) {
+    console.log('newVal', newVal)
+    console.log('oldVal', oldVal)
+  }
+},
+// watch(counterrr, (newVal, oldVal) => {console.log(oldVal, newVal)}),
+
   data() {
     return {
       count: 0,
@@ -37,11 +61,20 @@ export default {
       isAvailable: true,
       inventory: 2,
       num: Date.now(),
+      data: "",
     };
   },
   mounted() {
     // this.count+=20
     console.log("has been mounted");
+    fetch("https://icanhazdadjoke.com/", {
+      headers: {
+        Accept: "application/json",
+      },
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => (this.data = data));
   },
   beforeMount() {
     console.log("before mounted");
@@ -58,7 +91,6 @@ export default {
   updated() {
     console.log("has been updated");
   },
-
   methods: {
     incrementCount() {
       if (this.count < 20) {
@@ -77,6 +109,7 @@ export default {
       },
     },
   },
+  // components: { DogJokes },
 };
 </script>
 
